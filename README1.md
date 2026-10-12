@@ -36,7 +36,7 @@ The website is designed to provide a smooth and user-friendly experience across 
 SCT_WD_1/
 │
 ├── index.html
-└── README.md
+└── README1.md
 
 🎯 Learning Outcomes
 
