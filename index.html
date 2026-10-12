@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Responsive Landing Page</title>
+
+    <style>
+        /* Remove default spacing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background: #11111b;
+            color: #ffffff;
+        }
+
+        /* Fixed navigation bar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 7%;
+
+            background: rgba(20, 20, 35, 0.95);
+            transition: background 0.3s ease,
+                        padding 0.3s ease,
+                        box-shadow 0.3s ease;
+        }
+
+        /* Website logo */
+        .logo {
+            color: #58e0c1;
+            font-size: 27px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation links */
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        /* Hover effect */
+        nav a:hover,
+        nav a.active {
+            color: #58e0c1;
+            border-bottom-color: #58e0c1;
+        }
+
+        /* Navigation style after scrolling */
+        header.scrolled {
+            background: #ffffff;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        header.scrolled nav a {
+            color: #222238;
+        }
+
+        header.scrolled .logo {
+            color: #5b45d6;
+        }
+
+        header.scrolled nav a:hover,
+        header.scrolled nav a.active {
+            color: #5b45d6;
+            border-bottom-color: #5b45d6;
+        }
+
+        /* Mobile menu button */
+        .menu-button {
+            display: none;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        header.scrolled .menu-button {
+            color: #222238;
+        }
+
+        /* General section styling */
+        section {
+            min-height: 75vh;
+            padding: 110px 8% 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Home section */
+        #home {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 80% 25%,
+                    #49358a 0,
+                    transparent 32%
+                ),
+                linear-gradient(135deg, #171725, #222238);
+        }
+
+        .tagline {
+            color: #58e0c1;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        #home h1 {
+            font-size: clamp(40px, 7vw, 80px);
+            line-height: 1.1;
+            max-width: 850px;
+            margin-bottom: 20px;
+        }
+
+        #home h1 span {
+            color: #58e0c1;
+        }
+
+        .description {
+            max-width: 650px;
+            color: #c7c7d5;
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        /* Button styling */
+        .button {
+            display: inline-block;
+            width: fit-content;
+            padding: 13px 23px;
+            border-radius: 8px;
+            background: #58e0c1;
+            color: #11111b;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .button:hover {
+            background: #3ac9a8;
+            transform: translateY(-3px);
+        }
+
+        /* About section */
+        #about {
+            background: #f5f5fa;
+            color: #202033;
+        }
+
+        /* Services section */
+        #services {
+            background: #191927;
+        }
+
+        /* Contact section */
+        #contact {
+            background: #f5f5fa;
+            color: #202033;
+        }
+
+        .section-title {
+            font-size: clamp(30px, 4vw, 45px);
+            margin-bottom: 15px;
+        }
+
+        .section-text {
+            max-width: 750px;
+            font-size: 17px;
+            color: #626278;
+        }
+
+        .section-label {
+            color: #5b45d6;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        /* Services cards */
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-top: 30px;
+        }
+
+        .service-card {
+            padding: 25px;
+            border-radius: 14px;
+            background: #ffffff;
+            color: #26263a;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .service-card h3 {
+            color: #5b45d6;
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: #626278;
+        }
+
+        #services .section-text {
+            color: #c7c7d5;
+        }
+
+        /* Footer */
+        footer {
+            padding: 25px 8%;
+            text-align: center;
+            background: #0c0c14;
+            color: #aaaabe;
+        }
+
+        /* Responsive layout for mobile */
+        @media (max-width: 720px) {
+
+            header {
+                padding: 15px 5%;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                padding: 20px 5%;
+
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+
+                background: #1d1d2e;
+            }
+
+            nav.open {
+                display: flex;
+            }
+
+            header.scrolled nav {
+                background: #ffffff;
+            }
+
+            nav a {
+                width: 100%;
+            }
+
+            .service-cards {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding-left: 6%;
+                padding-right: 6%;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation bar -->
+    <header id="header">
+
+        <a href="#home" class="logo">NOVA.</a>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+        <nav id="navigation">
+
+            <a href="#home" class="active">Home</a>
+
+            <a href="#about">About</a>
+
+            <a href="#services">Services</a>
+
+            <a href="#contact">Contact</a>
+
+        </nav>
+
+    </header>
+
+    <!-- Home section -->
+    <section id="home">
+
+        <p class="tagline">Ideas into impact</p>
+
+        <h1>
+            Build Something
+            <span>Brilliant.</span>
+        </h1>
+
+        <p class="description">
+            Welcome to Nova, a modern digital studio.
+            We create creative, responsive, and user-friendly
+            digital experiences for everyone.
+        </p>
+
+        <a href="#services" class="button">
+            Explore Our Services →
+        </a>
+
+    </section>
+
+    <!-- About section -->
+    <section id="about">
+
+        <p class="section-label">Who We Are</p>
+
+        <h2 class="section-title">
+            Simple Ideas. Thoughtful Design.
+        </h2>
+
+        <p class="section-text">
+            Nova is a sample digital studio website created
+            to demonstrate responsive web design and
+            interactive navigation. Our goal is to make
+            websites attractive, easy to use, and accessible
+            across different devices.
+        </p>
+
+    </section>
+
+    <!-- Services section -->
+    <section id="services">
+
+        <p class="tagline">What We Do</p>
+
+        <h2 class="section-title">
+            Our Services
+        </h2>
+
+        <p class="section-text">
+            We combine design and technology to create
+            useful digital experiences.
+        </p>
+
+        <div class="service-cards">
+
+            <div class="service-card">
+
+                <h3>🌐 Web Design</h3>
+
+                <p>
+                    We design attractive and responsive
+                    websites for mobile, tablet, and desktop.
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <h3>💻 Web Development</h3>
+
+                <p>
+                    We build interactive websites using
+                    modern front-end technologies.
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <h3>💡 Creative Ideas</h3>
+
+                <p>
+                    We transform ideas into useful and
+                    user-friendly digital experiences.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Contact section -->
+    <section id="contact">
+
+        <p class="section-label">Get In Touch</p>
+
+        <h2 class="section-title">
+            Have a Project in Mind?
+        </h2>
+
+        <p class="section-text">
+            Let's work together to create something great.
+            You can replace this demo contact information
+            with your own email address.
+        </p>
+
+        <a href="mailto:hello@example.com" class="button">
+            Contact Us →
+        </a>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Nova Studio | Responsive Landing Page
+        </p>
+
+    </footer>
+
+    <script>
+        // Select HTML elements
+        const header = document.getElementById("header");
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+        const navigation =
+            document.getElementById("navigation");
+
+        const navLinks =
+            document.querySelectorAll("#navigation a");
+
+
+        // Change navbar appearance when scrolling
+        function changeNavbar() {
+
+            if (window.scrollY > 40) {
+
+                header.classList.add("scrolled");
+
+            } else {
+
+                header.classList.remove("scrolled");
+
+            }
+        }
+
+        window.addEventListener("scroll", changeNavbar);
+
+        // Apply the correct style when the page first loads
+        changeNavbar();
+
+
+        // Open and close the mobile navigation menu
+        menuButton.addEventListener("click", function() {
+
+            const isOpen = navigation.classList.toggle("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+            menuButton.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+            );
+
+            menuButton.textContent = isOpen ? "✕" : "☰";
+
+        });
+
+
+        // Update the active link and close the mobile menu
+        navLinks.forEach(function(link) {
+
+            link.addEventListener("click", function() {
+
+                navLinks.forEach(function(item) {
+
+                    item.classList.remove("active");
+
+                });
+
+                link.classList.add("active");
+
+                navigation.classList.remove("open");
+
+                menuButton.setAttribute("aria-expanded", "false");
+
+                menuButton.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+                menuButton.textContent = "☰";
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
